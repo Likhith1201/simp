@@ -1,0 +1,255 @@
+Rabdomized linea search
+
+
+
+import java.util.*;
+
+class RandomizedLinearSearch {
+
+    static int search(int[] a, int key) {
+        int n = a.length;
+        boolean[] visited = new boolean[n];
+        Random rand = new Random();
+        int count = 0;
+
+        while (count < n) {
+            int i = rand.nextInt(n);
+            if (!visited[i]) {
+                visited[i] = true;
+                count++;
+                if (a[i] == key)
+                    return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+
+        int res = search(a, key);
+
+        if (res == -1)
+            System.out.println("Element not found");
+        else
+            System.out.println("Element found at index " + res);
+    }
+}
+
+
+
+
+
+
+Randomized Binary Search
+
+
+import java.util.*;
+
+class RandomizedBinarySearch {
+
+    static int search(int[] a, int low, int high, int key) {
+        if (low > high)
+            return -1;
+
+        Random rand = new Random();
+        int mid = low + rand.nextInt(high - low + 1);
+
+        if (a[mid] == key)
+            return mid;
+        else if (a[mid] > key)
+            return search(a, low, mid - 1, key);
+        else
+            return search(a, mid + 1, high, key);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter sorted elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+
+        int res = search(a, 0, n - 1, key);
+
+        if (res == -1)
+            System.out.println("Element not found");
+        else
+            System.out.println("Element found at index " + res);
+    }
+}
+
+
+
+
+
+
+
+Linear Search
+
+
+
+
+
+
+import java.util.*;
+
+class LinearSearch {
+
+    static int search(int[] a, int key) {
+        for (int i = 0; i < a.length; i++)
+            if (a[i] == key)
+                return i;
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+
+        int res = search(a, key);
+
+        if (res == -1)
+            System.out.println("Element not found");
+        else
+            System.out.println("Element found at index " + res);
+    }
+}
+
+ 
+
+
+
+
+
+RECURSIVE BINARY SEARCH
+
+
+
+import java.util.*;
+
+class RecursiveBinarySearch {
+
+    static int search(int[] a, int low, int high, int key) {
+        if (low > high)
+            return -1;
+
+        int mid = (low + high) / 2;
+
+        if (a[mid] == key)
+            return mid;
+        else if (a[mid] > key)
+            return search(a, low, mid - 1, key);
+        else
+            return search(a, mid + 1, high, key);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter sorted elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+
+        int res = search(a, 0, n - 1, key);
+
+        if (res == -1)
+            System.out.println("Element not found");
+        else
+            System.out.println("Element found at index " + res);
+    }
+}
+
+
+
+
+
+
+
+
+
+ITERATIVE BINARY SEARCH
+
+import java.util.*;
+
+class IterativeBinarySearch {
+
+    static int search(int[] a, int key) {
+        int low = 0, high = a.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (a[mid] == key)
+                return mid;
+            else if (a[mid] > key)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter sorted elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        System.out.print("Enter key: ");
+        int key = sc.nextInt();
+
+        int res = search(a, key);
+
+        if (res == -1)
+            System.out.println("Element not found");
+        else
+            System.out.println("Element found at index " + res);
+    }
+}
+
+
+
+
+
+
