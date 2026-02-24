@@ -1,0 +1,465 @@
+BUBBLE SORT
+
+
+
+import java.util.*;
+
+class BubbleSort {
+
+    static void sort(int[] a) {
+        for (int pass = 0; pass < a.length - 1; pass++) {
+            boolean swapped = false;
+
+            for (int i = 0; i < a.length - pass - 1; i++) {
+                if (a[i] > a[i + 1]) {
+                    int t = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = t;
+                    swapped = true;
+                }
+            }
+            if (!swapped)
+                break;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        sort(a);
+
+        System.out.print("Sorted array: ");
+        for (int x : a)
+            System.out.print(x + " ");
+    }
+}
+
+
+
+
+
+SELECTION SORT
+
+
+
+import java.util.*;
+
+class SelectionSort {
+
+    static void sort(int[] a) {
+        for (int i = 0; i < a.length - 1; i++) {
+            int min = i;
+
+            for (int j = i + 1; j < a.length; j++)
+                if (a[j] < a[min])
+                    min = j;
+
+            int t = a[i];
+            a[i] = a[min];
+            a[min] = t;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int[] a = new int[n];
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            a[i] = sc.nextInt();
+
+        sort(a);
+
+        System.out.print("Sorted array: ");
+        for (int x : a)
+            System.out.print(x + " ");
+    }
+}
+
+
+
+
+
+
+
+INSERTION SORT
+
+
+
+import java.util.*;
+class Main
+{
+ static void InsertionSort(int a[])
+ {
+ for(int i=1;i<a.length;i++)
+ {
+ int p=i;
+ for(int j=i-1;j>=0;j--)
+ {
+ if(a[j]>a[p])
+ {
+ int temp=a[j];
+ a[j]=a[p];
+ a[p]=temp;
+ p--;
+ }
+ else break;
+ }
+ }
+ }
+ public static void main(String args[])
+ {
+ Scanner sc=new Scanner(System.in);
+ System.out.println("Enter the size of array: ");
+ int n=sc.nextInt();
+ int a[]=new int[n];
+ System.out.println("Enter the array elements: ");
+ for(int i=0;i<n;i++)
+ {
+ a[i]=sc.nextInt();
+ }
+ InsertionSort(a);
+ System.out.println("Sorted array: ");
+ for(int i=0;i<n;i++)
+ {
+ System.out.print(a[i]+" ");
+ }
+ }
+}
+
+
+
+
+
+
+
+QUICK SORT
+
+
+import java.util.*;
+
+class Main 
+{
+    static void quickSort(int list[], int low, int high)
+    {
+        if (low < high)
+        {
+            int p = partition(list, low, high);
+            quickSort(list, low, p - 1);
+            quickSort(list, p + 1, high);
+        }
+    }
+
+    static int partition(int list[], int low, int high)
+    {
+        int p = high;
+        int i = low;
+        int j = high - 1;
+
+        while (true)
+        {
+            while (i < high && list[i] < list[p])
+                i++;
+
+            while (j >= low && list[j] > list[p])
+                j--;
+
+            if (i < j)
+            {
+                int a = list[i];
+                list[i] = list[j];
+                list[j] = a;
+            }
+            else
+            {
+                int a = list[i];
+                list[i] = list[p];
+                list[p] = a;
+                return i;
+            }
+        }
+    }
+
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the list size: ");
+        int n = sc.nextInt();
+
+        int list[] = new int[n];
+
+        System.out.println("Enter the elements in the list: ");
+        for (int i = 0; i < n; i++)
+        {
+            list[i] = sc.nextInt();
+        }
+
+        int low = 0;
+        int high = n - 1;
+
+        quickSort(list, low, high);
+
+        System.out.print("Sorted Elements: ");
+        for (int i = 0; i < n; i++)
+        {
+            System.out.print(list[i] + " ");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+RANDOMIZED QUICK SORT
+
+
+import java.util.*;
+
+class Main
+{
+    static Random rand = new Random();
+
+    static void quickSort(int arr[], int low, int high)
+    {
+        if (low < high)
+        {
+            int p = partition(arr, low, high);
+            quickSort(arr, low, p - 1);
+            quickSort(arr, p + 1, high);
+        }
+    }
+
+    static int partition(int arr[], int low, int high)
+    {
+        // ---------- RANDOMIZED PIVOT ----------
+        int randomIndex = low + rand.nextInt(high - low + 1);
+
+        int temp = arr[randomIndex];
+        arr[randomIndex] = arr[high];
+        arr[high] = temp;
+        // -------------------------------------
+
+        int p = high;        // pivot index
+        int i = low;
+        int j = high - 1;
+
+        while (true)
+        {
+            while (i < high && arr[i] < arr[p])
+                i++;
+
+            while (j >= low && arr[j] > arr[p])
+                j--;
+
+            if (i < j)
+            {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            else
+            {
+                temp = arr[i];
+                arr[i] = arr[p];
+                arr[p] = temp;
+                return i;
+            }
+        }
+    }
+
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the list size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.print("Enter the elements: ");
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        quickSort(arr, 0, n - 1);
+
+        System.out.print("Sorted Elements: ");
+        for (int i = 0; i < n; i++)
+            System.out.print(arr[i] + " ");
+    }
+}
+
+
+
+
+
+
+
+
+MERGE SORT
+
+
+
+
+import java.util.*;
+
+class Main
+{
+    static void mergeSort(int arr[], int low, int high)
+    {
+        if (low < high)
+        {
+            int mid = (low + high) / 2;
+
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid + 1, high);
+
+            merge(arr, low, mid, high);
+        }
+    }
+
+    static void merge(int arr[], int low, int mid, int high)
+    {
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+
+        int temp[] = new int[high - low + 1];
+
+        while (i <= mid && j <= high)
+        {
+            if (arr[i] <= arr[j])
+                temp[k++] = arr[i++];
+            else
+                temp[k++] = arr[j++];
+        }
+
+        while (i <= mid)
+            temp[k++] = arr[i++];
+
+        while (j <= high)
+            temp[k++] = arr[j++];
+
+        for (int x = 0; x < temp.length; x++)
+            arr[low + x] = temp[x];
+    }
+
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the size of array: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.print("Enter the elements: ");
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        mergeSort(arr, 0, n - 1);
+
+        System.out.print("Sorted Elements: ");
+        for (int i = 0; i < n; i++)
+            System.out.print(arr[i] + " ");
+    }
+}
+
+
+
+
+
+
+
+HEAP SORT
+
+
+
+import java.util.Scanner;
+
+class Main
+{
+    static int heap[];
+    static int size;
+
+    static void heapSort(int arr[])
+    {
+        heap = arr;
+        size = arr.length - 1;
+
+        for (int i = size / 2; i >= 0; i--)
+            heapDown(i);
+
+        while (size >= 0)
+        {
+            int temp = heap[0];
+            heap[0] = heap[size];
+            heap[size] = temp;
+
+            size--;
+            heapDown(0);
+        }
+    }
+
+    static void heapDown(int i)
+    {
+        int smallest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left <= size && heap[left] < heap[smallest])
+            smallest = left;
+
+        if (right <= size && heap[right] < heap[smallest])
+            smallest = right;
+
+        if (smallest != i)
+        {
+            int temp = heap[i];
+            heap[i] = heap[smallest];
+            heap[smallest] = temp;
+
+            heapDown(smallest);
+        }
+    }
+
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter size: ");
+        int n = sc.nextInt();
+
+        int arr[] = new int[n];
+
+        System.out.print("Enter elements: ");
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        heapSort(arr);
+
+        System.out.print("Sorted Elements: ");
+        for (int i = 0; i < n; i++)
+            System.out.print(arr[i] + " ");
+    }
+}
+
+
+
+
+
