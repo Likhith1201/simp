@@ -1,0 +1,1059 @@
+QUEUE WITH ARRAY
+
+import java.util.Scanner;
+
+class Queue
+{
+    int front;
+    int rear;
+    int size;
+    int[] queue;
+
+    public Queue(int size)
+    {
+        this.size = size;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    boolean isEmpty()
+    {
+        return front == -1;
+    }
+
+    boolean isFull()
+    {
+        return rear == size - 1;
+    }
+
+    void enqueue(int val)
+    {
+        if (isEmpty())
+        {
+            front = 0;
+        }
+
+        queue[++rear] = val;
+        System.out.println(val + " enqueued.");
+    }
+
+    void dequeue()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        int val = queue[front];
+
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else
+        {
+            front++;
+        }
+
+        System.out.println(val + " is dequeued.");
+    }
+
+    void frontElement()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty.");
+        }
+        else
+        {
+            System.out.println("Front is " + queue[front]);
+        }
+    }
+
+    void rearElement()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty.");
+        }
+        else
+        {
+            System.out.println("Rear is " + queue[rear]);
+        }
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.print("Queue elements: ");
+        for (int i = front; i <= rear; i++)
+        {
+            System.out.print(queue[i] + " ");
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter queue size: ");
+        int size = sc.nextInt();
+
+        Queue queue = new Queue(size);
+
+        while (true)
+        {
+            System.out.println("\nQueue Operations");
+            System.out.println("1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Front");
+            System.out.println("4.Rear");
+            System.out.println("5.Display");
+            System.out.println("6.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    if (!queue.isFull())
+                    {
+                        System.out.print("Enter value: ");
+                        int val = sc.nextInt();
+                        queue.enqueue(val);
+                    }
+                    else
+                    {
+                        System.out.println("Queue is full");
+                    }
+                    break;
+
+                case 2:
+                    queue.dequeue();
+                    break;
+
+                case 3:
+                    queue.frontElement();
+                    break;
+
+                case 4:
+                    queue.rearElement();
+                    break;
+
+                case 5:
+                    queue.display();
+                    break;
+
+                case 6:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+QUEUE WITH LINKEDLIST
+
+
+import java.util.*;
+
+class Node
+{
+    int data;
+    Node next;
+
+    Node(int val)
+    {
+        this.data = val;
+        this.next = null;
+    }
+}
+
+class Queue
+{
+    Node front = null;
+    Node rear = null;
+    int count = 0;
+    int size;
+
+    Queue(int size)
+    {
+        this.size = size;
+    }
+
+    boolean isEmpty()
+    {
+        return front == null;
+    }
+
+    boolean isFull()
+    {
+        return count == size;
+    }
+
+    void enqueue(int val)
+    {
+        Node n = new Node(val);
+
+        if (isEmpty())
+        {
+            front = n;
+            rear = n;
+        }
+        else
+        {
+            rear.next = n;
+            rear = n;
+        }
+
+        count++;
+        System.out.println(val + " is enqueued");
+    }
+
+    void dequeue()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        int val = front.data;
+
+        if (front == rear)
+        {
+            front = null;
+            rear = null;
+        }
+        else
+        {
+            front = front.next;
+        }
+
+        count--;
+        System.out.println(val + " is dequeued");
+    }
+
+    void frontElement()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        System.out.println("Front: " + front.data);
+    }
+
+    void rearElement()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        System.out.println("Rear: " + rear.data);
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        System.out.print("Queue: ");
+        Node temp = front;
+
+        while (temp != null)
+        {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the queue size: ");
+        int size = sc.nextInt();
+
+        Queue queue = new Queue(size);
+
+        while (true)
+        {
+            System.out.println("\nQueue Operations:");
+            System.out.println("1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Front Element");
+            System.out.println("4.Rear Element");
+            System.out.println("5.Display");
+            System.out.println("6.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    if (queue.isFull())
+                    {
+                        System.out.println("Queue is full");
+                    }
+                    else
+                    {
+                        System.out.print("Enter value: ");
+                        queue.enqueue(sc.nextInt());
+                    }
+                    break;
+
+                case 2:
+                    queue.dequeue();
+                    break;
+
+                case 3:
+                    queue.frontElement();
+                    break;
+
+                case 4:
+                    queue.rearElement();
+                    break;
+
+                case 5:
+                    queue.display();
+                    break;
+
+                case 6:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+CIRCICULAR QUEUE
+
+
+
+import java.util.Scanner;
+
+class CircularQueue
+{
+    int front;
+    int rear;
+    int size;
+    int[] q;
+
+    public CircularQueue(int size)
+    {
+        this.size = size;
+        q = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    boolean isEmpty()
+    {
+        return front == -1 && rear == -1;
+    }
+
+    boolean isFull()
+    {
+        return (front == 0 && rear == size - 1) || (rear == front - 1);
+    }
+
+    void enqueue(int val)
+    {
+        if (front == -1)
+        {
+            front = 0;
+            rear = 0;
+        }
+        else
+        {
+            rear = (rear + 1) % size;
+        }
+
+        q[rear] = val;
+        System.out.println(val + " is enqueued.");
+    }
+
+    void dequeue()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is Empty");
+            return;
+        }
+
+        int val = q[front];
+
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else if (front == size - 1)
+        {
+            front = 0;
+        }
+        else
+        {
+            front++;
+        }
+
+        System.out.println(val + " is dequeued.");
+    }
+
+    void frontElement()
+    {
+        if (isEmpty())
+            System.out.println("Queue is empty.");
+        else
+            System.out.println("Front is " + q[front]);
+    }
+
+    void rearElement()
+    {
+        if (isEmpty())
+            System.out.println("Queue is empty.");
+        else
+            System.out.println("Rear is " + q[rear]);
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.print("Queue elements: ");
+        int i = front;
+
+        while (true)
+        {
+            System.out.print(q[i] + " ");
+            if (i == rear)
+                break;
+            i = (i + 1) % size;
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter queue size: ");
+        int size = sc.nextInt();
+
+        CircularQueue queue = new CircularQueue(size);
+
+        while (true)
+        {
+            System.out.println("\nCircular Queue Operations");
+            System.out.println("1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Front");
+            System.out.println("4.Rear");
+            System.out.println("5.Display");
+            System.out.println("6.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    if (!queue.isFull())
+                    {
+                        System.out.print("Enter value: ");
+                        queue.enqueue(sc.nextInt());
+                    }
+                    else
+                    {
+                        System.out.println("Queue is full");
+                    }
+                    break;
+
+                case 2:
+                    queue.dequeue();
+                    break;
+
+                case 3:
+                    queue.frontElement();
+                    break;
+
+                case 4:
+                    queue.rearElement();
+                    break;
+
+                case 5:
+                    queue.display();
+                    break;
+
+                case 6:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+DEQ
+
+
+
+import java.util.Scanner;
+
+class DEQueue
+{
+    int front;
+    int rear;
+    int size;
+    int[] queue;
+
+    public DEQueue(int size)
+    {
+        this.size = size;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    boolean isEmpty()
+    {
+        return front == -1 && rear == -1;
+    }
+
+    boolean isFull()
+    {
+        return (front == 0 && rear == size - 1) || (front == rear + 1);
+    }
+
+    void enqueueRear(int val)
+    {
+        if (isFull())
+        {
+            System.out.println("Insertion from rear not possible");
+            return;
+        }
+
+        if (isEmpty())
+        {
+            front = rear = 0;
+        }
+        else
+        {
+            rear = (rear + 1) % size;
+        }
+
+        queue[rear] = val;
+        System.out.println(val + " enqueued at rear");
+    }
+
+    void enqueueFront(int val)
+    {
+        if (isFull())
+        {
+            System.out.println("Insertion from front not possible");
+            return;
+        }
+
+        if (isEmpty())
+        {
+            front = rear = 0;
+        }
+        else
+        {
+            front = (front - 1 + size) % size;
+        }
+
+        queue[front] = val;
+        System.out.println(val + " enqueued at front");
+    }
+
+    void dequeueFront()
+    {
+        if (isEmpty())
+        {
+            System.out.println("DEQueue is empty");
+            return;
+        }
+
+        int val = queue[front];
+
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            front = (front + 1) % size;
+        }
+
+        System.out.println(val + " dequeued from front");
+    }
+
+    void dequeueRear()
+    {
+        if (isEmpty())
+        {
+            System.out.println("DEQueue is empty");
+            return;
+        }
+
+        int val = queue[rear];
+
+        if (front == rear)
+        {
+            front = rear = -1;
+        }
+        else
+        {
+            rear = (rear - 1 + size) % size;
+        }
+
+        System.out.println(val + " dequeued from rear");
+    }
+
+    void frontElement()
+    {
+        if (isEmpty())
+            System.out.println("DEQueue is empty");
+        else
+            System.out.println("Front is " + queue[front]);
+    }
+
+    void rearElement()
+    {
+        if (isEmpty())
+            System.out.println("DEQueue is empty");
+        else
+            System.out.println("Rear is " + queue[rear]);
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("DEQueue is empty");
+            return;
+        }
+
+        System.out.print("DEQueue elements: ");
+        int i = front;
+
+        while (true)
+        {
+            System.out.print(queue[i] + " ");
+            if (i == rear)
+                break;
+            i = (i + 1) % size;
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter DEQueue size: ");
+        int size = sc.nextInt();
+
+        DEQueue queue = new DEQueue(size);
+
+        while (true)
+        {
+            System.out.println("\nDEQueue Operations");
+            System.out.println("1.Enqueue");
+            System.out.println("2.Dequeue");
+            System.out.println("3.Front");
+            System.out.println("4.Rear");
+            System.out.println("5.Display");
+            System.out.println("6.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            int option, val;
+
+            switch (choice)
+            {
+                case 1:
+                    System.out.println("1.Enqueue from Front");
+                    System.out.println("2.Enqueue from Rear");
+                    option = sc.nextInt();
+
+                    if (!queue.isFull())
+                    {
+                        System.out.print("Enter value: ");
+                        val = sc.nextInt();
+
+                        if (option == 1)
+                            queue.enqueueFront(val);
+                        else
+                            queue.enqueueRear(val);
+                    }
+                    else
+                        System.out.println("DEQueue is full");
+                    break;
+
+                case 2:
+                    System.out.println("1.Dequeue from Front");
+                    System.out.println("2.Dequeue from Rear");
+                    option = sc.nextInt();
+
+                    if (option == 1)
+                        queue.dequeueFront();
+                    else
+                        queue.dequeueRear();
+                    break;
+
+                case 3:
+                    queue.frontElement();
+                    break;
+
+                case 4:
+                    queue.rearElement();
+                    break;
+
+                case 5:
+                    queue.display();
+                    break;
+
+                case 6:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+PRIORITY UNORDERDED
+
+
+
+import java.util.Scanner;
+
+class UnorderedPriorityQueue
+{
+    int size;
+    int[] queue;
+    int last;
+
+    public UnorderedPriorityQueue(int size)
+    {
+        this.size = size;
+        queue = new int[size];
+        last = -1;
+    }
+
+    boolean isEmpty()
+    {
+        return last == -1;
+    }
+
+    boolean isFull()
+    {
+        return last == size - 1;
+    }
+
+    void insert(int val)
+    {
+        queue[++last] = val;
+        System.out.println(val + " is inserted");
+    }
+
+    void deleteMin()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        int min = 0;
+
+        for (int i = 1; i <= last; i++)
+        {
+            if (queue[i] < queue[min])
+                min = i;
+        }
+
+        int val = queue[min];
+
+        for (int i = min; i < last; i++)
+        {
+            queue[i] = queue[i + 1];
+        }
+
+        last--;
+        System.out.println(val + " is deleted");
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        System.out.print("Queue elements: ");
+        for (int i = 0; i <= last; i++)
+        {
+            System.out.print(queue[i] + " ");
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter queue size: ");
+        int size = sc.nextInt();
+
+        UnorderedPriorityQueue queue = new UnorderedPriorityQueue(size);
+
+        while (true)
+        {
+            System.out.println("\nUnordered Priority Queue Operations");
+            System.out.println("1.Insert");
+            System.out.println("2.Delete Minimum");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    if (!queue.isFull())
+                    {
+                        System.out.print("Enter value: ");
+                        int val = sc.nextInt();
+                        queue.insert(val);
+                    }
+                    else
+                        System.out.println("Queue is full");
+                    break;
+
+                case 2:
+                    queue.deleteMin();
+                    break;
+
+                case 3:
+                    queue.display();
+                    break;
+
+                case 4:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
+
+
+
+
+PQ ORDERDED
+
+
+
+import java.util.Scanner;
+
+class OrderedPriorityQueue
+{
+    int size;
+    int[] queue;
+    int last;
+
+    public OrderedPriorityQueue(int size)
+    {
+        this.size = size;
+        queue = new int[size];
+        last = -1;
+    }
+
+    boolean isEmpty()
+    {
+        return last == -1;
+    }
+
+    boolean isFull()
+    {
+        return last == size - 1;
+    }
+
+    void insert(int val)
+    {
+        int i;
+        for (i = last; i >= 0 && queue[i] < val; i--)
+        {
+            queue[i + 1] = queue[i];
+        }
+        queue[i + 1] = val;
+        last++;
+        System.out.println(val + " is inserted");
+    }
+
+    void deleteMin()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        int val = queue[last--];
+        System.out.println(val + " is deleted");
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+            return;
+        }
+
+        System.out.print("Queue elements: ");
+        for (int i = 0; i <= last; i++)
+        {
+            System.out.print(queue[i] + " ");
+        }
+        System.out.println();
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter queue size: ");
+        int size = sc.nextInt();
+
+        OrderedPriorityQueue queue = new OrderedPriorityQueue(size);
+
+        while (true)
+        {
+            System.out.println("\nOrdered Priority Queue Operations");
+            System.out.println("1.Insert");
+            System.out.println("2.Delete Minimum");
+            System.out.println("3.Display");
+            System.out.println("4.Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    if (!queue.isFull())
+                    {
+                        System.out.print("Enter value: ");
+                        int val = sc.nextInt();
+                        queue.insert(val);
+                    }
+                    else
+                        System.out.println("Queue is full");
+                    break;
+
+                case 2:
+                    queue.deleteMin();
+                    break;
+
+                case 3:
+                    queue.display();
+                    break;
+
+                case 4:
+                    System.out.println("Program terminated");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
