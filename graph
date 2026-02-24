@@ -1,0 +1,233 @@
+BFS DFS
+
+
+
+import java.util.*;
+
+class Graph
+{
+    private int vertices;
+    private LinkedList<Integer>[] adjList;
+
+    // Constructor
+    public Graph(int v)
+    {
+        vertices = v;
+        adjList = new LinkedList[v];
+
+        for (int i = 0; i < v; i++)
+        {
+            adjList[i] = new LinkedList<>();
+        }
+    }
+
+    // Add edge (Undirected graph)
+    public void addEdge(int src, int dest)
+    {
+        adjList[src].add(dest);
+        adjList[dest].add(src);
+    }
+
+    // Breadth First Search
+    public void BFS(int start)
+    {
+        boolean[] visited = new boolean[vertices];
+        Queue<Integer> queue = new LinkedList<>();
+
+        visited[start] = true;
+        queue.add(start);
+
+        System.out.print("BFS Traversal: ");
+
+        while (!queue.isEmpty())
+        {
+            int vertex = queue.poll();
+            System.out.print(vertex + " ");
+
+            for (int adjVertex : adjList[vertex])
+            {
+                if (!visited[adjVertex])
+                {
+                    visited[adjVertex] = true;
+                    queue.add(adjVertex);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    // Depth First Search
+    public void DFS(int start)
+    {
+        boolean[] visited = new boolean[vertices];
+        System.out.print("DFS Traversal: ");
+        DFSUtil(start, visited);
+        System.out.println();
+    }
+
+    // DFS utility method
+    private void DFSUtil(int vertex, boolean[] visited)
+    {
+        visited[vertex] = true;
+        System.out.print(vertex + " ");
+
+        for (int adjVertex : adjList[vertex])
+        {
+            if (!visited[adjVertex])
+            {
+                DFSUtil(adjVertex, visited);
+            }
+        }
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of vertices: ");
+        int v = sc.nextInt();
+
+        System.out.print("Enter number of edges: ");
+        int e = sc.nextInt();
+
+        Graph graph = new Graph(v);
+
+        System.out.println("Enter edges (source destination):");
+        for (int i = 0; i < e; i++)
+        {
+            int src = sc.nextInt();
+            int dest = sc.nextInt();
+            graph.addEdge(src, dest);
+        }
+
+        System.out.print("Enter starting vertex: ");
+        int start = sc.nextInt();
+
+        graph.BFS(start);
+        graph.DFS(start);
+
+        sc.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BST
+
+
+
+import java.util.*;
+
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class Main
+{
+    // Create Binary Tree using Level Order
+    static Node createTree()
+    {
+        Scanner sc = new Scanner(System.in);
+        Queue<Node> queue = new LinkedList<>();
+
+        System.out.print("Enter root value: ");
+        int val = sc.nextInt();
+
+        if (val == -1)
+            return null;
+
+        Node root = new Node(val);
+        queue.add(root);
+
+        while (!queue.isEmpty())
+        {
+            Node current = queue.poll();
+
+            System.out.print("Enter left child of " + current.data + ": ");
+            int leftVal = sc.nextInt();
+            if (leftVal != -1)
+            {
+                current.left = new Node(leftVal);
+                queue.add(current.left);
+            }
+
+            System.out.print("Enter right child of " + current.data + ": ");
+            int rightVal = sc.nextInt();
+            if (rightVal != -1)
+            {
+                current.right = new Node(rightVal);
+                queue.add(current.right);
+            }
+        }
+        return root;
+    }
+
+    // Inorder Traversal
+    static void inorder(Node root)
+    {
+        if (root != null)
+        {
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
+    }
+
+    // Preorder Traversal
+    static void preorder(Node root)
+    {
+        if (root != null)
+        {
+            System.out.print(root.data + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    // Postorder Traversal
+    static void postorder(Node root)
+    {
+        if (root != null)
+        {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        Node root = createTree();
+
+        System.out.print("\nInorder Traversal: ");
+        inorder(root);
+
+        System.out.print("\nPreorder Traversal: ");
+        preorder(root);
+
+        System.out.print("\nPostorder Traversal: ");
+        postorder(root);
+    }
+}
