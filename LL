@@ -146,20 +146,21 @@ import java.util.Scanner;
 
 class Node {
     int data;
-    Node next;
+    Node prev, next;
 
     Node(int data) {
         this.data = data;
-        this.next = null;
     }
 }
 
-class SinglyLinkedList {
+class DoublyLinkedList {
     Node head;
 
     // Insert at beginning
     void insertFirst(int data) {
         Node n = new Node(data);
+        if (head != null)
+            head.prev = n;
         n.next = head;
         head = n;
     }
@@ -175,6 +176,7 @@ class SinglyLinkedList {
         while (temp.next != null)
             temp = temp.next;
         temp.next = n;
+        n.prev = temp;
     }
 
     // Delete first
@@ -184,18 +186,24 @@ class SinglyLinkedList {
             return;
         }
         head = head.next;
+        if (head != null)
+            head.prev = null;
     }
 
     // Delete last
     void deleteLast() {
-        if (head == null || head.next == null) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (head.next == null) {
             head = null;
             return;
         }
         Node temp = head;
-        while (temp.next.next != null)
+        while (temp.next != null)
             temp = temp.next;
-        temp.next = null;
+        temp.prev.next = null;
     }
 
     // Search
@@ -221,7 +229,7 @@ class SinglyLinkedList {
         }
         Node temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " -> ");
+            System.out.print(temp.data + " <-> ");
             temp = temp.next;
         }
         System.out.println("NULL");
@@ -231,7 +239,7 @@ class SinglyLinkedList {
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        SinglyLinkedList list = new SinglyLinkedList();
+        DoublyLinkedList list = new DoublyLinkedList();
 
         while (true) {
             System.out.println("\n1.Insert First  2.Insert Last");
